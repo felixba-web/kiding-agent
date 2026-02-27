@@ -4,7 +4,9 @@ from datetime import datetime, timedelta
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = open("/app/token").read().strip()
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+if not TOKEN:
+    raise Exception("TELEGRAM_TOKEN is missing")
 START_TIME = time.time()
 BOT_VERSION = "1.0.0"
 

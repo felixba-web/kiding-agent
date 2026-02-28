@@ -12,11 +12,11 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 AUTHORIZED_USER_ID = os.getenv("TELEGRAM_USER_ID")
 
-if not TOKEN:
-    raise Exception("TELEGRAM_TOKEN is missing")
-
-if not AUTHORIZED_USER_ID:
-    raise Exception("TELEGRAM_USER_ID is missing")
+if AUTHORIZED_USER_ID:
+    AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
+    print("Whitelist aktiv")
+else:
+    print("WARNUNG: TELEGRAM_USER_ID nicht gesetzt – Whitelist deaktiviert")
 
 AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
 

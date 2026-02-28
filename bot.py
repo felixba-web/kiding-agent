@@ -1,10 +1,3 @@
-import os
-import time
-import logging
-from datetime import datetime, timedelta
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-
 # =========================
 # 🔐 ENV
 # =========================
@@ -12,13 +5,19 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 AUTHORIZED_USER_ID = os.getenv("TELEGRAM_USER_ID")
 
+if not TOKEN:
+    raise Exception("TELEGRAM_TOKEN is missing")
+
 if AUTHORIZED_USER_ID:
-    AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
-    print("Whitelist aktiv")
+    try:
+        AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
+        print("Whitelist aktiv")
+    except ValueError:
+        print("WARNUNG: TELEGRAM_USER_ID ist keine gültige Zahl")
+        AUTHORIZED_USER_ID = None
 else:
     print("WARNUNG: TELEGRAM_USER_ID nicht gesetzt – Whitelist deaktiviert")
-
-AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
+    AUTHORIZED_USER_ID = None
 
 # =========================
 # ⚙️ GLOBAL STATE

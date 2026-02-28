@@ -10,7 +10,6 @@ if not TOKEN:
 
 if AUTHORIZED_USER_ID:
     try:
-        AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
         print("Whitelist aktiv")
     except ValueError:
         print("WARNUNG: TELEGRAM_USER_ID ist keine gültige Zahl")

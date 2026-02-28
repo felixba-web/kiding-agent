@@ -1,3 +1,10 @@
+import os
+import time
+import logging
+from datetime import datetime, timedelta
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
 # =========================
 # 🔐 ENV
 # =========================
@@ -10,6 +17,7 @@ if not TOKEN:
 
 if AUTHORIZED_USER_ID:
     try:
+        AUTHORIZED_USER_ID = int(AUTHORIZED_USER_ID)
         print("Whitelist aktiv")
     except ValueError:
         print("WARNUNG: TELEGRAM_USER_ID ist keine gültige Zahl")
@@ -23,7 +31,7 @@ else:
 # =========================
 
 START_TIME = time.time()
-BOT_VERSION = "1.1.0"
+BOT_VERSION = "1.1.1"
 
 # =========================
 # 📊 LOGGING
@@ -41,6 +49,9 @@ logger = logging.getLogger("kiding_bot")
 # =========================
 
 def is_authorized(update: Update) -> bool:
+    if not AUTHORIZED_USER_ID:
+        return True  # Whitelist deaktiviert
+
     user_id = update.effective_user.id
     chat_type = update.effective_chat.type
 
@@ -193,6 +204,6 @@ app.add_handler(CommandHandler("mode", mode))
 app.add_handler(CommandHandler("setmode", setmode))
 app.add_handler(CommandHandler("pause", pause))
 
-logger.info("KIDING Bot gestartet")
+print("KIDING Bot gestartet")
 
 app.run_polling()

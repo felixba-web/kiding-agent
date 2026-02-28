@@ -10,7 +10,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 # =========================
 
 TOKEN = os.getenv("TELEGRAM_TOKEN")
-AUTHORIZED_USER_ID = os.getenv("24177784")
+AUTHORIZED_USER_ID = os.getenv("TELEGRAM_USER_ID")
 
 if not TOKEN:
     raise Exception("TELEGRAM_TOKEN is missing")
